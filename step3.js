@@ -95,7 +95,7 @@ const handleCube = (text, cube) => {
     case 'F': frontMove(cube); break;
     case 'F\'': frontReverseMove(cube); break;
     case 'R': rightMove(cube); break;
-    case 'R\'': break;
+    case 'R\'': rightReverseMove(cube); break;
     case 'U': break;
     case 'U\'': break;
     case 'B': break;
@@ -168,12 +168,12 @@ const rightMove = cube => {
   cube.front[0][2] = cube.down[0][2];
   cube.front[1][2] = cube.down[1][2];
   cube.front[2][2] = cube.down[2][2];
-  cube.back[0][0] = cube.up[0][2];
-  cube.back[1][0] = cube.up[1][2];
-  cube.back[2][0] = cube.up[0][2];
   cube.down[0][2] = cube.back[0][0];
   cube.down[1][2] = cube.back[1][0];
   cube.down[2][2] = cube.back[2][0];
+  cube.back[0][0] = cube.up[0][2];
+  cube.back[1][0] = cube.up[1][2];
+  cube.back[2][0] = cube.up[2][2];
   cube.up[0][2] = tmpFront[0][2];
   cube.up[1][2] = tmpFront[1][2];
   cube.up[2][2] = tmpFront[2][2];
@@ -186,6 +186,33 @@ const rightMove = cube => {
   cube.right[2][1] = tmpRight[1][2];
   cube.right[2][2] = tmpRight[0][2];
 };
+
+// 큐브의 가장 오른쪽 줄을 반시계방향으로 회전하는 함수
+const rightReverseMove = cube => {
+  let tmpFront = [cube.front[0].slice(), cube.front[1].slice(), cube.front[2].slice()];
+  let tmpRight = cube.right.slice();
+  cube.front[0][2] = cube.up[0][2];
+  cube.front[1][2] = cube.up[1][2];
+  cube.front[2][2] = cube.up[2][2];
+  cube.up[0][2] = cube.back[0][0];
+  cube.up[1][2] = cube.back[1][0];
+  cube.up[2][2] = cube.back[2][0];
+  cube.back[0][0] = cube.down[0][2];
+  cube.back[1][0] = cube.down[1][2];
+  cube.back[2][0] = cube.down[2][2];
+  cube.down[0][2] = tmpFront[0][2];
+  cube.down[1][2] = tmpFront[1][2];
+  cube.down[2][2] = tmpFront[2][2];
+  cube.right[0][0] = tmpRight[0][2];
+  cube.right[0][1] = tmpRight[1][2];
+  cube.right[0][2] = tmpRight[2][2];
+  cube.right[1][0] = tmpRight[0][1];
+  cube.right[1][2] = tmpRight[2][1];
+  cube.right[2][0] = tmpRight[0][0];
+  cube.right[2][1] = tmpRight[1][0];
+  cube.right[2][2] = tmpRight[2][0];
+};
+
 
 // 종료 처리하는 함수
 const quit = cube => {
