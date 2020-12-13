@@ -84,9 +84,15 @@ const play = cube => {
   if(stat) {
     play(cube);
   } else {
-    // 종료 처리
+    quit(cube);
   }
 }
+
+// 종료 처리하는 함수
+const quit = cube => {
+  log('이용해주셔서 감사합니다. 뚜뚜뚜.');
+  process.exit();
+};
 
 // cube의 생성 및 game을 시작하는 초기화 목적의 함수
 const init = () => {
