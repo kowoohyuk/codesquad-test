@@ -98,8 +98,8 @@ const handleCube = (text, cube) => {
     case 'R\'': rightReverseMove(cube); break;
     case 'U': upMove(cube); break;
     case 'U\'': upReverseMove(cube); break;
-    case 'B': break;
-    case 'B\'': break;
+    case 'B': backMove(cube); break;
+    case 'B\'': backReverseMove(cube); break;
     case 'L': break;
     case 'L\'': break;
     case 'D': break;
@@ -247,6 +247,58 @@ const upReverseMove = cube => {
   cube.up[2][0] = tmpUp[0][0];
   cube.up[2][1] = tmpUp[1][0];
   cube.up[2][2] = tmpUp[2][0];
+};
+
+// 큐브의 뒷부분을 시계방향으로 회전하는 함수
+const backMove = cube => {
+  let tmpUp = cube.up[0].slice();
+  let tmpBack = cube.back.slice();
+  cube.up[0][0] = cube.right[0][2];
+  cube.up[0][1] = cube.right[1][2];
+  cube.up[0][2] = cube.right[2][2];
+  cube.right[0][2] = cube.down[2][0];
+  cube.right[1][2] = cube.down[2][1];
+  cube.right[2][2] = cube.down[2][2];
+  cube.down[2][0] = cube.left[0][0];
+  cube.down[2][1] = cube.left[1][0];
+  cube.down[2][2] = cube.left[2][0];
+  cube.left[0][0] = tmpUp[0];
+  cube.left[1][0] = tmpUp[1];
+  cube.left[2][0] = tmpUp[2];
+  cube.back[0][0] = tmpBack[2][0];
+  cube.back[0][1] = tmpBack[1][0];
+  cube.back[0][2] = tmpBack[0][0];
+  cube.back[1][0] = tmpBack[2][1];
+  cube.back[1][2] = tmpBack[0][1];
+  cube.back[2][0] = tmpBack[2][2];
+  cube.back[2][1] = tmpBack[1][2];
+  cube.back[2][2] = tmpBack[0][2];
+};
+
+// 큐브의 뒷부분을 반시계방향으로 회전하는 함수
+const backReverseMove = cube => {
+  let tmpUp = cube.up[0].slice();
+  let tmpBack = cube.back.slice();
+  cube.up[0][0] = cube.left[2][0];
+  cube.up[0][1] = cube.left[1][0];
+  cube.up[0][2] = cube.left[0][0];
+  cube.left[0][0] = cube.down[2][0];
+  cube.left[1][0] = cube.down[2][1];
+  cube.left[2][0] = cube.down[2][2];
+  cube.down[2][0] = cube.right[0][2];
+  cube.down[2][1] = cube.right[1][2];
+  cube.down[2][2] = cube.right[2][2];
+  cube.right[0][2] = tmpUp[0];
+  cube.right[1][2] = tmpUp[1];
+  cube.right[2][2] = tmpUp[2];
+  cube.back[0][0] = tmpBack[0][2];
+  cube.back[0][1] = tmpBack[1][2];
+  cube.back[0][2] = tmpBack[2][2];
+  cube.back[1][0] = tmpBack[0][1];
+  cube.back[1][2] = tmpBack[2][1];
+  cube.back[2][0] = tmpBack[0][0];
+  cube.back[2][1] = tmpBack[1][0];
+  cube.back[2][2] = tmpBack[2][0];
 };
 
 // 종료 처리하는 함수
