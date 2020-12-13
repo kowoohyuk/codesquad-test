@@ -1,3 +1,6 @@
+// readline-sync 패키지가 필요합니다.
+const rSync = require('readline-sync');
+
 const {log} = console;
 
 // 큐브 생성을 위한 생성자 함수
@@ -36,6 +39,13 @@ function Cube() {
   this.count = 0;
 }
 
+// 게임을 시작하는 함수
+const gameStart = cube => {
+  printCube(cube);
+  log('도움말: /help \n게임을 시작합니다!\n');
+  // 게임 시작을 위한 함수 호출
+}
+
 // 현재 큐브를 출력
 const printCube = cube => {
   const largeGap = '               ';
@@ -59,7 +69,7 @@ const printCube = cube => {
 // cube의 생성 및 game을 시작하는 초기화 목적의 함수
 const init = () => {
   const cube = new Cube();
-  printCube(cube);
+  gameStart(cube);
 }
 
 init();
