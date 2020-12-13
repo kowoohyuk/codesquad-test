@@ -79,13 +79,33 @@ const play = cube => {
     if(i < str.length - 1 && str[i + 1] === '\'') {
       text = str.slice(i, ++i + 1);
     }
-    // 큐브 이동처리
+    handleCube(text, cube);
   }
   if(stat) {
     play(cube);
   } else {
     quit(cube);
   }
+}
+
+// 이동 방향에 맞는 함수를 호출하는 제어 함수
+const handleCube = (text, cube) => {
+  switch(text) {
+    case 'F': break;
+    case 'F\'': break;
+    case 'R': break;
+    case 'R\'': break;
+    case 'U': break;
+    case 'U\'': break;
+    case 'B': break;
+    case 'B\'': break;
+    case 'L': break;
+    case 'L\'': break;
+    case 'D': break;
+    case 'D\'': break;
+    default: break;
+  }
+  cube.count += 1;
 }
 
 // 종료 처리하는 함수
