@@ -79,6 +79,7 @@ const play = cube => {
     if(i < str.length - 1 && str[i + 1] === '\'') {
       text = str.slice(i, ++i + 1);
     }
+    log(text);
     cube = handleCube(text, cube);
     printCube(cube);
   }
