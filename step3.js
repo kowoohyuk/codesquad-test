@@ -36,16 +36,30 @@ function Cube() {
   this.count = 0;
 }
 
-
-// 종료 처리하는 함수
-const quit = cube => {
-  process.exit();
+// 현재 큐브를 출력
+const printCube = cube => {
+  const largeGap = '               ';
+  const gap = '     ';
+  let upText = '';
+  let middleText = '';
+  let downText = '';
+  cube.up.forEach(line => upText += largeGap + line.join(' ') + '\r\n');
+  cube.front.forEach((_, index) => {
+    middleText += cube.front[index].join(' ') + gap;
+    middleText += cube.right[index].join(' ') + gap;
+    middleText += cube.back[index].join(' ') + gap;
+    middleText += cube.left[index].join(' ') + '\r\n';
+  });
+  cube.down.forEach(line => downText += largeGap + line.join(' ') + '\r\n');
+  log(upText);
+  log(middleText);
+  log(downText);
 };
 
 // cube의 생성 및 game을 시작하는 초기화 목적의 함수
 const init = () => {
   const cube = new Cube();
-  gameStart(cube);
+  printCube(cube);
 }
 
 init();
