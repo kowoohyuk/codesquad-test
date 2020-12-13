@@ -42,8 +42,8 @@ function Cube() {
 // 게임을 시작하는 함수
 const gameStart = cube => {
   printCube(cube);
-  log('도움말: /help \n게임을 시작합니다!\n');
-  // 게임 시작을 위한 함수 호출
+  log('게임을 시작합니다!\n');
+  play(cube);
 }
 
 // 현재 큐브를 출력
@@ -65,6 +65,28 @@ const printCube = cube => {
   log(middleText);
   log(downText);
 };
+
+// 게임을 진행하며 사용자로부터 텍스트를 입력받는 함수
+const play = cube => {
+  str = rSync.question('CUBE> ');
+  let stat = true;
+  for(let i = 0; i < str.length; i++) {
+    let text = str[i];
+    if(text === 'Q') {
+      stat = false;
+      break;
+    }
+    if(i < str.length - 1 && str[i + 1] === '\'') {
+      text = str.slice(i, ++i + 1);
+    }
+    // 큐브 이동처리
+  }
+  if(stat) {
+    play(cube);
+  } else {
+    // 종료 처리
+  }
+}
 
 // cube의 생성 및 game을 시작하는 초기화 목적의 함수
 const init = () => {
