@@ -80,6 +80,7 @@ const play = cube => {
       text = str.slice(i, ++i + 1);
     }
     handleCube(text, cube);
+    printCube(cube);
   }
   if(stat) {
     play(cube);
@@ -91,7 +92,7 @@ const play = cube => {
 // 이동 방향에 맞는 함수를 호출하는 제어 함수
 const handleCube = (text, cube) => {
   switch(text) {
-    case 'F': break;
+    case 'F': frontMove(cube); break;
     case 'F\'': break;
     case 'R': break;
     case 'R\'': break;
@@ -107,6 +108,32 @@ const handleCube = (text, cube) => {
   }
   cube.count += 1;
 }
+
+// 큐브의 앞부분을 시계방향으로 회전하는 함수
+const frontMove = cube => {
+  let tmpUp = cube.up[2].slice();
+  let tmpFront = cube.front.slice();
+  cube.up[2][0] = cube.left[2][2];
+  cube.up[2][1] = cube.left[1][2];
+  cube.up[2][2] = cube.left[0][2];
+  cube.left[0][2] = cube.down[0][0];
+  cube.left[1][2] = cube.down[0][1];
+  cube.left[2][2] = cube.down[0][2];
+  cube.down[0][0] = cube.right[2][0];
+  cube.down[0][1] = cube.right[1][0];
+  cube.down[0][2] = cube.right[0][0];
+  cube.right[0][0] = tmpUp[2];
+  cube.right[1][0] = tmpUp[1];
+  cube.right[2][0] = tmpUp[0];
+  cube.front[0][0] = tmpFront[2][0];
+  cube.front[0][1] = tmpFront[1][0];
+  cube.front[0][2] = tmpFront[0][0];
+  cube.front[1][0] = tmpFront[2][1];
+  cube.front[1][2] = tmpFront[0][1];
+  cube.front[2][0] = tmpFront[2][2];
+  cube.front[2][1] = tmpFront[1][2];
+  cube.front[2][2] = tmpFront[0][2];
+};
 
 // 종료 처리하는 함수
 const quit = cube => {
