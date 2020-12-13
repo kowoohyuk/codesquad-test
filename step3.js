@@ -100,8 +100,8 @@ const handleCube = (text, cube) => {
     case 'U\'': upReverseMove(cube); break;
     case 'B': backMove(cube); break;
     case 'B\'': backReverseMove(cube); break;
-    case 'L': break;
-    case 'L\'': break;
+    case 'L': leftMove(cube); break;
+    case 'L\'': leftReverseMove(cube); break;
     case 'D': break;
     case 'D\'': break;
     default: break;
@@ -299,6 +299,58 @@ const backReverseMove = cube => {
   cube.back[2][0] = tmpBack[0][0];
   cube.back[2][1] = tmpBack[1][0];
   cube.back[2][2] = tmpBack[2][0];
+};
+
+// 큐브의 가장 왼쪽 줄을 시계방향으로 회전하는 함수
+const leftMove = cube => {
+  let tmpFront = [cube.front[0].slice(), cube.front[1].slice(), cube.front[2].slice()];
+  let tmpLeft = cube.left.slice();
+  cube.front[0][0] = cube.down[0][0];
+  cube.front[1][0] = cube.down[1][0];
+  cube.front[2][0] = cube.down[2][0];
+  cube.down[0][0] = cube.back[2][2];
+  cube.down[1][0] = cube.back[1][2];
+  cube.down[2][0] = cube.back[0][2];
+  cube.back[0][2] = cube.up[2][0];
+  cube.back[1][2] = cube.up[1][0];
+  cube.back[2][2] = cube.up[0][0];
+  cube.up[0][0] = tmpFront[0][0];
+  cube.up[1][0] = tmpFront[1][0];
+  cube.up[2][0] = tmpFront[2][0];
+  cube.left[0][0] = tmpLeft[2][0];
+  cube.left[0][1] = tmpLeft[1][0];
+  cube.left[0][2] = tmpLeft[0][0];
+  cube.left[1][0] = tmpLeft[2][1];
+  cube.left[1][2] = tmpLeft[0][1];
+  cube.left[2][0] = tmpLeft[2][2];
+  cube.left[2][1] = tmpLeft[1][2];
+  cube.left[2][2] = tmpLeft[0][2];
+};
+
+// 큐브의 가장 왼쪽 줄을 반시계방향으로 회전하는 함수
+const leftReverseMove = cube => {
+  let tmpFront = [cube.front[0].slice(), cube.front[1].slice(), cube.front[2].slice()];
+  let tmpLeft = cube.left.slice();
+  cube.front[0][0] = cube.up[0][0];
+  cube.front[1][0] = cube.up[1][0];
+  cube.front[2][0] = cube.up[2][0];
+  cube.up[0][0] = cube.back[2][2];
+  cube.up[1][0] = cube.back[1][2];
+  cube.up[2][0] = cube.back[0][2];
+  cube.back[0][2] = cube.down[2][0];
+  cube.back[1][2] = cube.down[1][0];
+  cube.back[2][2] = cube.down[0][0];
+  cube.down[0][0] = tmpFront[0][0];
+  cube.down[1][0] = tmpFront[1][0];
+  cube.down[2][0] = tmpFront[2][0];
+  cube.left[0][0] = tmpLeft[0][2];
+  cube.left[0][1] = tmpLeft[1][2];
+  cube.left[0][2] = tmpLeft[2][2];
+  cube.left[1][0] = tmpLeft[0][1];
+  cube.left[1][2] = tmpLeft[2][1];
+  cube.left[2][0] = tmpLeft[0][0];
+  cube.left[2][1] = tmpLeft[1][0];
+  cube.left[2][2] = tmpLeft[2][0];
 };
 
 // 종료 처리하는 함수
